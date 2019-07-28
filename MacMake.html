@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Header -->
+    <title>MacMaker 1</title>
+    <meta charset="utf-8">
+    <!-- Bootstrap stuff -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: ghostwhite;">
+    <div class="container-fluid">
+        <div class="panel panel-default" style="margin-top: 10px">
+            <!-- Explanation area -->
+            <div class="panel-body">
+                <h3 style="text-align: center">
+                    Below, paste in your mac address and it will be formatted for the other boxes.
+                </h3>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <!-- Blank Grid Space -->
+        </div>
+        <div class="col-sm-5">
+            <!-- Main Input Box -->
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Input mac" id="mainInput">
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <!-- Reset button -->
+            <div class=""><button class="btn btn-warning" onclick="resetPage();">Reset</button></div>
+        </div>
+        <div class="col-sm-2">
+            <!-- Blank Grid Space -->
+        </div>
+    </div>
+
+    <!-- Table of results -->
+    <div class="container table-responsive">
+        <!-- you need the table-responsive AND the container to make this mobile friendly -->
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        <!-- Error spot! -->
+                        <div id="errorSpot1"></div>
+                    </th>
+                    <th class="text-center">Lower Case</th>
+                    <th class="text-center">Capitolized</th>
+                </tr>
+            </thead>
+            <tbody style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                <tr>
+                    <td style="font-size: large; font-weight: bolder;">Semicolons</td>
+                    <td>
+                        <!-- Semicolon Lowercase Field -->
+                        <div id="semicolonLower" class="text-center" style="font-size: larger;"></div>
+                        <div id="semicolonLowerCopy" class="text-right"><a href="#" role="button" onClick="cp('#semicolonLower')" class="btn btn-outline-info">&nbsp;&nbsp; cp</a></div>
+                    </td>
+                    <td>
+                        <!-- Semicolon Uppercase Field -->
+                        <div id="semicolonCap" class="text-center" style="font-size: larger;"></div>
+                        <div id="semicolonCapCopy" class="text-right"><a href="#" role="button" onClick="cp('#semicolonCap')" class="btn btn-outline-info">&nbsp;&nbsp; cp</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: large; font-weight: bolder;">Dashes</td>
+                    <td>
+                        <!-- Dashes Lowercase Field -->
+                        <div id="dashesLower" class="text-center" style="font-size: larger;"></div>
+                        <div id="dashesLowerCopy" class="text-right"><a href="#" role="button" onClick="cp('#dashesLower')" class="btn btn-outline-info">&nbsp;&nbsp; cp</a></div>
+                    </td>
+                    <td>
+                        <!-- Dashes Uppercase Field -->
+                        <div id="dashesCap" class="text-center" style="font-size: larger;"></div>
+                        <div id="dashesCapCopy" class="text-right"><a href="#" role="button" onClick="cp('#dashesCap')" class="btn btn-outline-info">&nbsp;&nbsp; cp</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: large; font-weight: bolder;">Cisco .4</td>
+                    <!-- Cisco .4 formats -->
+                    <td>
+                        <div id="ciscoDot4Lower" class="text-center" style="font-size: larger"></div>
+                        <div id="ciscoDot4LowerCopy" class="text-right"><a href="#" role="button" onClick="cp('#ciscoDot4Lower')" class="btn btn-outline-info">&nbsp;&nbsp; cp</a></div>
+                    </td>
+                    <td>
+                        <div id="ciscoDot4Cap" class="text-center" style="font-size: larger"></div>
+                        <div id="ciscoDot4CapCopy" class="text-right"><a href="#" role="button" onClick="cp('#ciscoDot4Cap')" class="btn btn-outline-info">&nbsp;&nbsp; cp</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: large; font-weight: bolder;">Plain</td>
+                    <!-- Plain format -->
+                    <td>
+                        <div id="plainLower" class="text-center" style="font-size: larger"></div>
+                        <div id="plainLowerCopy" class="text-right"><a href="#" role="button" onClick="cp('#plainLower')" class="btn btn-outline-info">&nbsp;&nbsp; cp</a></div>
+                    </td>
+                    <td>
+                        <div id="plainCap" class="text-center" style="font-size: larger"></div>
+                        <div id="plainCapCopy" class="text-right"><a href="#" role="button" onClick="cp('#plainCap')" class="btn btn-outline-info">&nbsp;&nbsp; cp</a></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- End of Table-->
+    <div style="margin-top:40px;" id="container-fluid">
+        <div style="font-style: italic; font-size: small;" class="text-center">This was written in JavaScript by Larry Williams. Complain to him.</div>
+    </div>
+
+    <!-- Custom Stuff -->
+
+    <script>
+        // To hide the copy anchors.
+        // Some JQuery here.
+        $(document).ready(function() {
+            document.getElementById('ciscoDot4CapCopy').hidden = true;
+            document.getElementById('ciscoDot4LowerCopy').hidden = true;
+            document.getElementById('dashesCapCopy').hidden = true;
+            document.getElementById('dashesLowerCopy').hidden = true;
+            document.getElementById('semicolonCapCopy').hidden = true;
+            document.getElementById('semicolonLowerCopy').hidden = true;
+            document.getElementById('plainCapCopy').hidden = true;
+            document.getElementById('plainLowerCopy').hidden = true;
+            document.getElementById('errorSpot1').hidden = true;
+
+            // This should fix Firefox not clearing on refresh.
+            document.getElementById('mainInput').value = "";
+        });
+    </script>
+
+    <script>
+        // Function to copy contents to the Clipboard.
+        // Also some JQuery.
+        function cp(element) {
+            let $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+    </script>
+
+    <script>
+        // Register a listener on the mainInput.
+        document.getElementById('mainInput').addEventListener("input", matchBoxes);
+
+        function matchBoxes() {
+            // This function makes the mac addresses format properly in each box.
+
+            // First, assign the values to variables.
+            let mainInputBox = document.getElementById('mainInput');
+            let mainInputVal = mainInputBox.value;
+
+            // Clean up the string before it is processed.
+            if (mainInputVal.length > 12) {
+                mainInputVal = mainInputVal.replace(/[- ;:.]/g, "");
+            }
+
+            // If our value is a length of exactly 12 chars, format.
+            if (mainInputVal.length == 12) {
+
+                // Fill in the individual blocks of the table.
+                document.getElementById('semicolonLower').innerHTML = giveSemicolons(mainInputVal.toLowerCase());
+                document.getElementById('semicolonCap').innerHTML = giveSemicolons(mainInputVal.toUpperCase());
+                document.getElementById('dashesLower').innerHTML = giveDashes(mainInputVal.toLowerCase());
+                document.getElementById('dashesCap').innerHTML = giveDashes(mainInputVal.toUpperCase());
+                document.getElementById('ciscoDot4Lower').innerHTML = giveCiscoDot4(mainInputVal.toLowerCase());
+                document.getElementById('ciscoDot4Cap').innerHTML = giveCiscoDot4(mainInputVal.toUpperCase());
+                document.getElementById('plainLower').innerHTML = mainInputVal.toLowerCase();
+                document.getElementById('plainCap').innerHTML = mainInputVal.toUpperCase();
+
+                // Reveal all of the copy links.
+                document.getElementById('ciscoDot4CapCopy').hidden = false;
+                document.getElementById('ciscoDot4LowerCopy').hidden = false;
+                document.getElementById('dashesCapCopy').hidden = false;
+                document.getElementById('dashesLowerCopy').hidden = false;
+                document.getElementById('semicolonCapCopy').hidden = false;
+                document.getElementById('semicolonLowerCopy').hidden = false;
+                document.getElementById('plainCapCopy').hidden = false;
+                document.getElementById('plainLowerCopy').hidden = false;
+
+                // Error Suppression.
+                document.getElementById('errorSpot1').hidden = true;
+            } else {
+                let errOut = document.getElementById('errorSpot1');
+                if (mainInputVal.length > 12) {
+                    errOut.innerHTML = "MAC too long";
+                    errOut.style.color = "red";
+                }
+                if (mainInputVal.length < 12) {
+                    errOut.innerHTML = "MAC too short";
+                    errOut.style.color = "red";
+                }
+                errOut.hidden = false;
+            }
+        }
+
+        function giveSemicolons(stringIn) {
+            // This takes a mac address and gives it semicolons.
+            let retStr = "";
+
+            if (stringIn.length < 12) {
+                // Error checking.
+                return "";
+            }
+
+            let flip = 0;
+            for (counter = 0; counter < stringIn.length; counter++) {
+                // Itterate the string and every two put in a semi colon.
+                if (flip < 2) {
+                    // add the next char.
+                    retStr += stringIn.charAt(counter);
+                    flip++;
+                } else {
+                    // add a semicolon.
+                    flip = 0;
+                    retStr += ":";
+                    counter--;
+                }
+            }
+            return retStr;
+        }
+
+        function giveDashes(stringIn) {
+            // This takes a mac address and gives it dashes.
+            let retStr = "";
+
+            if (stringIn.length < 12) {
+                // Error checking.
+                return "";
+            }
+
+            let flip = 0;
+            for (counter = 0; counter < stringIn.length; counter++) {
+                // Itterate the string and every two put in a semi colon.
+                if (flip < 2) {
+                    // add the next char.
+                    retStr += stringIn.charAt(counter);
+                    flip++;
+                } else {
+                    // add a semicolon.
+                    flip = 0;
+                    retStr += "-";
+                    counter--;
+                }
+            }
+            return retStr;
+        }
+
+        function giveCiscoDot4(stringIn) {
+            // This takes a mac address and gives it 1234.1234.1234 (cisco format)
+            let retStr = "";
+
+            if (stringIn.length < 12) {
+                // Error checking.
+                return "";
+            }
+
+            let flip = 0;
+            for (counter = 0; counter < stringIn.length; counter++) {
+                // Itterate the string and every four put in a period.
+                if (flip < 4) {
+                    // add the next char.
+                    retStr += stringIn.charAt(counter);
+                    flip++;
+                } else {
+                    // add a period.
+                    flip = 0;
+                    retStr += ".";
+                    counter--;
+                }
+            }
+            return retStr;
+        }
+
+        function resetPage() {
+            // Function to reset the data on the page.
+            document.getElementById('ciscoDot4CapCopy').hidden = true;
+            document.getElementById('ciscoDot4LowerCopy').hidden = true;
+            document.getElementById('dashesCapCopy').hidden = true;
+            document.getElementById('dashesLowerCopy').hidden = true;
+            document.getElementById('semicolonCapCopy').hidden = true;
+            document.getElementById('semicolonLowerCopy').hidden = true;
+            document.getElementById('plainCapCopy').hidden = true;
+            document.getElementById('plainLowerCopy').hidden = true;
+            document.getElementById('errorSpot1').hidden = true;
+
+            // This should fix Firefox not clearing on refresh.
+            document.getElementById('mainInput').value = "";
+
+            // Reset all the innerHTML values on the table.
+            document.getElementById('semicolonLower').innerHTML = ""
+            document.getElementById('semicolonCap').innerHTML = ""
+            document.getElementById('dashesLower').innerHTML = ""
+            document.getElementById('dashesCap').innerHTML = ""
+            document.getElementById('ciscoDot4Lower').innerHTML = ""
+            document.getElementById('ciscoDot4Cap').innerHTML = ""
+            document.getElementById('plainLower').innerHTML = ""
+            document.getElementById('plainCap').innerHTML = ""
+        }
+    </script>
+
+    <!-- 
+        Written by Larry Williams.  
+            Mostly, because I hate formatting MACs.
+    -->
+</body>
+
+</html>
